@@ -23,8 +23,8 @@ document.getElementById("removeFile").addEventListener("click", removeFile);
     }
 
 
-$archivo=$_POST['file'];
-  $content=$_POST['contenido'];
+$archivo=$GET['file'];
+  $content=$GET['contenido'];
 
    function createFile() {
    var type = window.TEMPORARY;
@@ -117,9 +117,9 @@ $archivo=$_POST['file'];
   </head>
   <body onload="onBodyLoad()">
     <h1>Example</h1>
-<form action="" method="get">
+<form action="index.html" method="get">
       <input for type="text"  required placeholder="Ingresa el nombre de tu archivo" name="file"><br><br>
-  <input id="createFile" type="submit" value="Aceptar">
+  <input id="createFile" type="button" value="CREATE FILE">
     </form>
 
 <button id = "writeFile">WRITE FILE</button>
@@ -128,3 +128,4 @@ $archivo=$_POST['file'];
 <textarea id = "textarea"></textarea>
   </body>
 </html>
+
