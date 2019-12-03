@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FileWriter Example</title>
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    // Wait for PhoneGap to load
+    //
+    function onBodyLoad() {
+                document.addEventListener("deviceready", onDeviceReady, false);
+            }
+
+    // PhoneGap is ready
+    //
+    function onDeviceReady() {
+	    navigator.notification.alert("PhoneGap is ready!");
+        document.getElementById("createFile").addEventListener("click", createFile);
+document.getElementById("writeFile").addEventListener("click", writeFile);
+document.getElementById("readFile").addEventListener("click", readFile);
+document.getElementById("removeFile").addEventListener("click", removeFile);
+    }
+
+
+$archivo=$_POST['file'];
+  $content=$_POST['contenido'];
+
+   function createFile() {
+   var type = window.TEMPORARY;
+   var size = 5*1024*1024;
+  window.requestFileSystem(type, size, successCallback, errorCallback)
+
+   function successCallback(fs) {
+      fs.root.getFile($archivo + '.txt', {create: true, exclusive: true}, function(fileEntry) {
+         alert('File creation successfull! ' + fs.root.fullPath +' jgj')
+      }, errorCallback);
+   }
+
+   function errorCallback(error) {
+      alert("ERROR: " + error.code)
+   }
+	
+}
+      function writeFile() {
+   var type = window.TEMPORARY;
+   var size = 5*1024*1024;
+   window.requestFileSystem(type, size, successCallback, errorCallback)
+
+   function successCallback(fs) {
+      fs.root.getFile('practica.txt', {create: true}, function(fileEntry) {
+
+         fileEntry.createWriter(function(fileWriter) {
+            fileWriter.onwriteend = function(e) {
+               alert('Write completed.');
+            };
+
+            fileWriter.onerror = function(e) {
+               alert('Write failed: ' + e.toString());
+            };
+
+            var blob = new Blob(['practica practica practica'], {type: 'text/plain'});
+            fileWriter.write(blob);
+         }, errorCallback);
+      }, errorCallback);
+   }
+
+   function errorCallback(error) {
+      alert("ERROR: " + error.code)
+   }
+}
+      function readFile() {
+   var type = window.TEMPORARY;
+   var size = 5*1024*1024;
+   window.requestFileSystem(type, size, successCallback, errorCallback)
+
+   function successCallback(fs) {
+      fs.root.getFile('practica.txt', {}, function(fileEntry) {
+
+         fileEntry.file(function(file) {
+            var reader = new FileReader();
+
+            reader.onloadend = function(e) {
+               var txtArea = document.getElementById('textarea');
+               txtArea.value = this.result;
+            };
+            reader.readAsText(file);
+         }, errorCallback);
+      }, errorCallback);
+   }
+
+   function errorCallback(error) {
+      alert("ERROR: " + error.code)
+   }
+}
+      function removeFile() {
+   var type = window.TEMPORARY;
+   var size = 5*1024*1024;
+   window.requestFileSystem(type, size, successCallback, errorCallback)
+
+   function successCallback(fs) {
+      fs.root.getFile('practica.txt', {create: false}, function(fileEntry) {
+
+         fileEntry.remove(function() {
+            alert('File removed.');
+         }, errorCallback);
+      }, errorCallback);
+   }
+
+   function errorCallback(error) {
+      alert("ERROR: " + error.code)
+   }
+}
+      
+
+    </script>
+  </head>
+  <body onload="onBodyLoad()">
+    <h1>Example</h1>
+<form action="" method="get">
+      <input for type="text"  required placeholder="Ingresa el nombre de tu archivo" name="file"><br><br>
+  <input id="createFile" type="submit" value="Aceptar">
+    </form>
+
+<button id = "writeFile">WRITE FILE</button>
+<button id = "readFile">READ FILE</button>
+<button id = "removeFile">DELETE FILE</button>
+<textarea id = "textarea"></textarea>
+  </body>
+</html>
