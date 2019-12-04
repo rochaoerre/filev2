@@ -23,16 +23,18 @@ document.getElementById("removeFile").addEventListener("click", removeFile);
     }
 
 
-$archivo=$POST['file'];
+<?php
+   $archivo=$POST['file'];
   $content=$POST['contenido'];
+?>
 
    function createFile() {
+  var img = '<?php $archivo;?>';
    var type = window.TEMPORARY;
    var size = 5*1024*1024;
   window.requestFileSystem(type, size, successCallback, errorCallback)
-
    function successCallback(fs) {
-      fs.root.getFile("'"+ $archivo + "'" + '.txt', {create: true, exclusive: true}, function(fileEntry) {
+      fs.root.getFile( img + '.txt', {create: true, exclusive: true}, function(fileEntry) {
          alert('File creation successfull! ' + fs.root.fullPath +' jgj')
       }, errorCallback);
    }
