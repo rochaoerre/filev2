@@ -20,26 +20,7 @@ document.getElementById("readFile").addEventListener("click", readFile);
 document.getElementById("removeFile").addEventListener("click", removeFile);
     }
   
-  document.querySelector('#myfile').onchange = function(e) {
-  var files = this.files;
-
-  window.requestFileSystem(window.TEMPORARY, 1024*1024, function(fs) {
-    // Duplicate each file the user selected to the app's fs.
-    for (var i = 0, file; file = files[i]; ++i) {
-
-      // Capture current iteration's file in local scope for the getFile() callback.
-      (function(f) {
-        fs.root.getFile(file.name, {create: true, exclusive: true}, function(fileEntry) {
-          fileEntry.createWriter(function(fileWriter) {
-            fileWriter.write(f); // Note: write() can take a File or Blob object.
-          }, errorHandler);
-        }, errorHandler);
-      })(file);
-
-    }
-  }, errorHandler);
-
-};
+  
 
    function createFile() {
    var type = window.TEMPORARY;
@@ -113,7 +94,26 @@ document.getElementById("removeFile").addEventListener("click", removeFile);
       alert("ERROR: " + error.code)
    }
 }
-      
+      document.querySelector('#myfile').onchange = function(e) {
+  var files = this.files;
+
+  window.requestFileSystem(window.TEMPORARY, 1024*1024, function(fs) {
+    // Duplicate each file the user selected to the app's fs.
+    for (var i = 0, file; file = files[i]; ++i) {
+
+      // Capture current iteration's file in local scope for the getFile() callback.
+      (function(f) {
+        fs.root.getFile(file.name, {create: true, exclusive: true}, function(fileEntry) {
+          fileEntry.createWriter(function(fileWriter) {
+            fileWriter.write(f); // Note: write() can take a File or Blob object.
+          }, errorHandler);
+        }, errorHandler);
+      })(file);
+
+    }
+  }, errorHandler);
+
+};
     </script>
   </head>
   <body onload="onBodyLoad()">
@@ -127,10 +127,9 @@ document.getElementById("removeFile").addEventListener("click", removeFile);
 <button id = "writeFile">WRITE FILE</button>
 <button id = "readFile">READ FILE</button>
 <button id = "removeFile">DELETE FILE</button>
-<textarea id = "textarea"></textarea>
 <br>
+<textarea id = "textarea"></textarea>
 <input type="file" id="myfile" multiple />
   </body>
 </html>
-
 
