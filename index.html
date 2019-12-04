@@ -23,8 +23,8 @@ document.getElementById("removeFile").addEventListener("click", removeFile);
     }
 
 
-$archivo=$GET['file'];
-  $content=$GET['contenido'];
+$archivo=$POST['file'];
+  $content=$POST['contenido'];
 
    function createFile() {
    var type = window.TEMPORARY;
@@ -32,7 +32,7 @@ $archivo=$GET['file'];
   window.requestFileSystem(type, size, successCallback, errorCallback)
 
    function successCallback(fs) {
-      fs.root.getFile('$archivo'" + '.txt', {create: true, exclusive: true}, function(fileEntry) {
+      fs.root.getFile( "%s"', $archivo + '.txt', {create: true, exclusive: true}, function(fileEntry) {
          alert('File creation successfull! ' + fs.root.fullPath +' jgj')
       }, errorCallback);
    }
@@ -117,9 +117,9 @@ $archivo=$GET['file'];
   </head>
   <body onload="onBodyLoad()">
     <h1>Example</h1>
-<form action="index.html" method="get">
+<form action="index.html" method="post">
       <input for type="text"  required placeholder="Ingresa el nombre de tu archivo" name="file"><br>
-  <input id="createFile" type="button" value="CREATE FILE">
+  <input id="createFile" type="submit" value="CREATE FILE">
     </form>
 <br>
 <button id = "writeFile">WRITE FILE</button>
