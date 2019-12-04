@@ -25,9 +25,8 @@ document.getElementById("removeFile").addEventListener("click", removeFile);
    function createFile() {
    var type = window.TEMPORARY;
    var size = 5*1024*1024;
-   var archi = $archivo=$POST['file'];
   window.requestFileSystem(type, size, successCallback, errorCallback)
-   function successCallback(fs,archi) {
+   function successCallback(fs) {
       fs.root.getFile('prueba.txt', {create: true, exclusive: true}, function(fileEntry) {
          alert('File creation successfull! ' + fs.root.fullPath +' jgj')
       }, errorCallback);
@@ -94,6 +93,8 @@ document.getElementById("removeFile").addEventListener("click", removeFile);
       alert("ERROR: " + error.code)
    }
 }
+
+
       document.querySelector('#myfile').onchange = function(e) {
   var files = this.files;
 
@@ -114,6 +115,7 @@ document.getElementById("removeFile").addEventListener("click", removeFile);
   }, errorHandler);
 
 };
+
     </script>
   </head>
   <body onload="onBodyLoad()">
