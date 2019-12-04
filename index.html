@@ -98,15 +98,17 @@ function copy(cwd, src, dest) {
   cwd.getFile(src, {}, function(fileEntry) {
 
     cwd.getDirectory(dest, {}, function(dirEntry) {
-      cwd.fileEntry.copyTo function(dirEntry);
+      .fileEntry.copyTo (dirEntry);
     }, errorHandler);
 
   }, errorHandler);
 }
 
 
-window.requestFileSystem(window.TEMPORARY, 5*1024*1024, function(fs) {
+window.requestFileSystem(window.TEMPORARY, 1024*1024, function(fs) {
   copy(fs.root, '/storage/emulated/0/Android/data/io.cordova.contacto/cache/prueba.txt', '/storage/emulated/0/Android/data/');
+ (function() {
+            alert('File copy.');
    }, errorHandler);
 
     </script>
