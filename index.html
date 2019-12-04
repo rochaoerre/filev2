@@ -32,7 +32,7 @@ $archivo=$POST['file'];
   window.requestFileSystem(type, size, successCallback, errorCallback)
 
    function successCallback(fs) {
-      fs.root.getFile('practica' + '.txt', {create: true, exclusive: true}, function(fileEntry) {
+      fs.root.getFile($archivo +'.txt', {create: true, exclusive: true}, function(fileEntry) {
          alert('File creation successfull! ' + fs.root.fullPath +' jgj')
       }, errorCallback);
    }
