@@ -94,7 +94,19 @@ document.getElementById("removeFile").addEventListener("click", removeFile);
    }
 }
 
+function copy(cwd, src, dest) {
+  cwd.getFile(src, {}, function(fileEntry) {
 
+    cwd.getDirectory(dest, {}, function(dirEntry) {
+      fileEntry.copyTo(dirEntry);
+    }, errorHandler);
+
+  }, errorHandler);
+}
+
+window.requestFileSystem(window.TEMPORARY, 1024*1024, function(fs) {
+  copy(fs.root, '/folder1/me.png', 'folder2/mypics/');
+}, errorHandler);
 
     </script>
   </head>
@@ -102,7 +114,7 @@ document.getElementById("removeFile").addEventListener("click", removeFile);
     <h1>Example</h1>
 <form action="index.html" method="post">
       <input for type="text"  required placeholder="Ingresa el nombre de tu archivo" name="file"><br>
-  <input id="createFile" type="submit" value="CREATE FILE">
+  <input id="" type="submit" value="CREATE FILE">
     </form>
 <br>
 <button id = "createFile">CREATE FILE</button>
@@ -111,7 +123,8 @@ document.getElementById("removeFile").addEventListener("click", removeFile);
 <button id = "removeFile">DELETE FILE</button>
 <br>
 <textarea id = "textarea"></textarea>
-
+<br>
+<button id = "copy">COPY FILE</button>
   </body>
 </html>
 
