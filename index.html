@@ -94,31 +94,15 @@ document.getElementById("removeFile").addEventListener("click", removeFile);
    }
 }
 
-function copy(cwd, src, dest) {
-  cwd.getFile(src, {}, function(fileEntry) {
-
-    cwd.getDirectory(dest, {}, function(dirEntry) {
-      fileEntry.copyTo (dirEntry);
-    }, errorHandler);
-
-  }, errorHandler);
-}
 
 
-window.requestFileSystem(window.TEMPORARY, 1024*1024, function(fs) {
-  copy(fs.root, '/storage/emulated/0/Android/data/io.cordova.contacto/cache/prueba.txt', '/storage/emulated/0/Android/data/')
- (function() {
-            alert('File copy.');
-   }, errorHandler);
+
 
     </script>
   </head>
   <body onload="onBodyLoad()">
     <h1>Example</h1>
-<form action="index.html" method="post">
-      <input for type="text"  required placeholder="Ingresa el nombre de tu archivo" name="file"><br>
-  <input id="" type="submit" value="CREATE FILE">
-    </form>
+
 <br>
 <button id = "createFile">CREATE FILE</button>
 <button id = "writeFile">WRITE FILE</button>
@@ -127,11 +111,7 @@ window.requestFileSystem(window.TEMPORARY, 1024*1024, function(fs) {
 <br>
 <textarea id = "textarea"></textarea>
 <br>
-<button id = "copy">COPY FILE</button>
+
   </body>
 </html>
-
-
-
-
 
